@@ -4,6 +4,109 @@ output: html_document
 date: "2024-03-28"
 ---
 
+
+# Class Exercise 1
+
+
+## Data Import
+
+```{r}
+library(readxl)
+data <- read_excel("data/data.xlsx")
+View(data)
+```
+data source: https://www.europeansocialsurvey.org/data-portal
+
+
+## Data Preparation
+
+```{r}
+# Extract relevant columns
+data_prep <- data[c("stfeco", "trstplt")]
+
+# Rename columns
+colnames(data_prep) <- c("econ_satisfaction", "trust_politicians")
+
+# Mapping values 77, 88 and 99 to NA
+data_prep[data_prep == 77] <- NA
+data_prep[data_prep == 88] <- NA
+data_prep[data_prep == 99] <- NA
+
+# Delete missing values (NA)
+data_prep <- na.omit(data_prep)
+
+# View the data
+View(data_prep)
+
+# Save the data to dedicated folder
+write.csv(data, "data_prep/data_prep.csv")
+```
+
+
+## Research Question.
+
+Do people who are satisfied with present state of economy in country have more trust in politicians?
+
+
+## Empirical Hypothesis
+
+People that are more satisfied with present state of economy in country might have more trust in their politicians
+
+
+## Hypothesis Testing
+
+### 1. Descriptive Statistics
+
+```{r}
+# Descriptive statistics for stfeco
+summary(data_prep$econ_satisfaction)
+
+# Descriptive statistics for trstplt
+summary(data_prep$trust_politicians)
+```
+
+
+### 2. Linear Regression
+
+```{r}
+model <- lm(trust_politicians ~ econ_satisfaction, data = data_prep)
+
+# Summary of the model
+summary(model)
+
+# Generate predictions
+predictions <- predict(model, newdata = data_prep)
+
+# Create a data frame with original data and predictions
+prediction_df <- data.frame(data_prep$econ_satisfaction, data_prep$trust_politicians, predictions)
+colnames(prediction_df) <- c("Economic_Satisfaction", "Trust_in_Politicians", "Predicted_Trust")
+
+# Display the first few rows of the prediction data frame
+head(prediction_df)
+
+# Plot observed vs. predicted values
+ggplot(prediction_df, aes(x = Trust_in_Politicians, y = Predicted_Trust)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +
+  labs(title = "Observed vs. Predicted Values",
+       x = "Observed Trust in Politicians",
+       y = "Predicted Trust in Politicians")
+```
+
+
+### 3. Pearson Correlation
+
+```{r}
+correlation_pearson <- cor(data_prep$econ_satisfaction, data_prep$trust_politicians, method = "pearson")
+print(correlation_pearson)
+```
+
+
+
+
+
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
