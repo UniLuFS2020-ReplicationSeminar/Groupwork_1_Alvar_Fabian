@@ -13,19 +13,19 @@ hist(data_prep$econ_satisfaction, main="Economic Satisfaction", xlab="Satisfacti
 hist(data_prep$trust_politicians, main="Trust in Politicians", xlab="Trust Level", ylab="Frequency", col="lightgreen")
 
 
-# Boxplot 1
+# 2. Boxplot 1
 ggplot(data_prep, aes(x = factor(econ_satisfaction), y = trust_politicians)) +
   geom_boxplot() +
   labs(x = "Economic Satisfaction", y = "Trust in Politicians") +
   ggtitle("Boxplot of Trust in Politicians by Economic Satisfaction")
 
-# Boxplot 2
+# 3. Boxplot 2
 ggplot(data_prep, aes(x = factor(trust_politicians), y = econ_satisfaction)) +
   geom_boxplot() +
   labs(x = "Trust in Politicians", y = "Economic Satisfaction") +
   ggtitle("Boxplot of Economic Satisfaction by  Trust in Politicians")
 
-# Heatmap
+# 4. Heatmap
 ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
   geom_bin2d() +
   scale_fill_gradient(low = "white", high = "blue") +
@@ -33,7 +33,7 @@ ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
   ggtitle("Heatmap of Economic Satisfaction vs. Trust in Politicians")
 
 
-# 2. Plot the linear model
+# Plot the linear model
 ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -43,3 +43,4 @@ ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
 
 # Save the linear model plot to "figures"-folder
 ggsave("figures/linear_regression.png")
+
