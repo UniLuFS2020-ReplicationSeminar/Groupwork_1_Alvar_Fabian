@@ -1,4 +1,6 @@
 ## Plots and Figures
+# Load required libraries
+library(ggplot2)
 
 # Plot the linear model
 ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
