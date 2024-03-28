@@ -1,3 +1,9 @@
+# Find a viable research question
+# Do people who are satisfied with present state of economy in country have more trust in politicians?
+
+# Specify an empirical hypothesis addressing the research question.
+# People that are more satisfied with present state of economy in country might have more trust in their politicians
+
 ## 1. Descriptive statistics
 
 # Descriptive statistics for stfeco
