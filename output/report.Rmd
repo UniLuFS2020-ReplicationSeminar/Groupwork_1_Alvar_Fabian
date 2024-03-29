@@ -193,7 +193,8 @@ ggsave("figures/linear_regression.png")
 The linear regression model also shows the positive relationship between the variables.
 
 
-  
+## Conclusion
+Based on these findings, it can be concluded that there is indeed a positive relationship between economic satisfaction and trust in politicians. Individuals who perceive the economy as performing well are more likely to express trust in political leaders. This underscores the importance of economic factors in shaping public perceptions of political leadership and governance. However, it's essential to recognize that causality cannot be inferred from this analysis alone (omitted variables, reversed causality), and further research would be needed to explore the underlying mechanisms driving this relationship. 
 
 
 
