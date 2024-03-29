@@ -12,7 +12,7 @@ date: '2024-03-28'
 
 ## Data Import
 
-```{r}
+```{r, echo=FALSE}
 library(readxl)
 data <- read_excel("data/data.xlsx")
 View(data)
@@ -22,15 +22,14 @@ data source: https://www.europeansocialsurvey.org/data-portal
 
 ## Data Preparation
 
-Extract relevant columns and show the first 10 observations of the new data set
-
-```{r}
+```{r, echo=FALSE}
+# Extract relevant columns and show the first 10 observations of the new data set
 data_prep <- data[c("stfeco", "trstplt")]
 head(data_prep, 10)
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 # Rename columns
 colnames(data_prep) <- c("econ_satisfaction", "trust_politicians")
 
@@ -64,7 +63,7 @@ People that are more satisfied with present state of economy in country might ha
 
 ### 1. Descriptive Statistics
 
-```{r}
+```{r, echo=FALSE}
 # Descriptive statistics for econ_satisfaction
 summary(data_prep$econ_satisfaction)
 
@@ -76,7 +75,7 @@ The descriptive statistics suggest than economic satisfaction is generally rated
 
 ### 2. Linear Regression
 
-```{r}
+```{r,echo=FALSE}
 model <- lm(trust_politicians ~ econ_satisfaction, data = data_prep)
 
 # Summary of the model
@@ -84,7 +83,7 @@ summary(model)
 ```
 According to the linear regression the relationship is statistically significant on the 1% CI and as expected positive.
 
-```{r}
+```{r, echo=FALSE}
 library(ggplot2)
 
 # Generate predictions
@@ -108,7 +107,7 @@ The average difference between actual and predicted values seems very small.
 
 ### 3. Pearson Correlation
 
-```{r}
+```{r, echo=FALSE}
 correlation_pearson <- cor(data_prep$econ_satisfaction, data_prep$trust_politicians, method = "pearson")
 print(correlation_pearson)
 ```
@@ -118,7 +117,7 @@ print(correlation_pearson)
 
 ### Histograms
 
-```{r}
+```{r, echo=FALSE}
 # Plotting a histogram for both variables
 par(mfrow=c(1,2)) # Set up a 1x2 grid for plotting
 
@@ -139,7 +138,7 @@ There are quite a lot of 0 or 1 values at the trust values (meaning no or almost
 
 ### Boxplots
 
-```{r}
+```{r, echo=FALSE}
 # Boxplot 1
 ggplot(data_prep, aes(x = factor(econ_satisfaction), y = trust_politicians)) +
   geom_boxplot() +
@@ -163,7 +162,7 @@ The two box plots illustrate the positive relationship between the two variables
 
 ### Heatmap
 
-```{r}
+```{r, echo=FALSE}
 ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
   geom_bin2d() +
   scale_fill_gradient(low = "white", high = "blue") +
@@ -178,7 +177,7 @@ The heatmap shows in which combinations between the two variables the most obser
 
 ### Plot the Linear Model
 
-```{r}
+```{r, echo=FALSE}
 # Plot the linear model
 ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
   geom_point() +
@@ -197,28 +196,3 @@ The linear regression model also shows the positive relationship between the var
 Based on these findings, it can be concluded that there is indeed a positive relationship between economic satisfaction and trust in politicians. Individuals who perceive the economy as performing well are more likely to express trust in political leaders. This underscores the importance of economic factors in shaping public perceptions of political leadership and governance. However, it's essential to recognize that causality cannot be inferred from this analysis alone (omitted variables, reversed causality), and further research would be needed to explore the underlying mechanisms driving this relationship. 
 
 
-
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
