@@ -1,7 +1,9 @@
 ---
 title: "report"
-output: html_document
-date: "2024-03-28"
+output:
+  word_document: default
+  html_document: default
+date: '2024-03-28'
 ---
 
 
@@ -11,9 +13,9 @@ date: "2024-03-28"
 ## Data Import
 
 ```{r}
-library(readxl)
-data <- data # we have already imported the data file in R file data_import
-View(data)
+#library(readxl)
+#data <- read_excel("data.xlsx")
+#View(data)
 ```
 data source: https://www.europeansocialsurvey.org/data-portal
 
@@ -44,7 +46,7 @@ data_prep <- na.omit(data_prep)
 View(data_prep)
 
 # Save the data to dedicated folder
-write.csv(data, "data_prep/data_prep.csv")
+#write.csv(data, "data/data_prep.csv")
 ```
 
 
@@ -96,6 +98,9 @@ ggplot(prediction_df, aes(x = Trust_in_Politicians, y = Predicted_Trust)) +
   labs(title = "Observed vs. Predicted Values",
        x = "Observed Trust in Politicians",
        y = "Predicted Trust in Politicians")
+
+# Save the plot
+ggsave("figures/observed_vs_predicted.png")
 ```
 
 
