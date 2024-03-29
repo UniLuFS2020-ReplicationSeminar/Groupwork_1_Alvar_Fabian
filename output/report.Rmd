@@ -85,6 +85,8 @@ summary(model)
 According to the linear regression the relationship is statistically significant on the 1% CI and as expected positive.
 
 ```{r}
+library(ggplot2)
+
 # Generate predictions
 predictions <- predict(model, newdata = data_prep)
 
@@ -95,20 +97,13 @@ colnames(prediction_df) <- c("Economic_Satisfaction", "Trust_in_Politicians", "P
 # Display the first few rows of the prediction data frame
 head(prediction_df)
 
-# Calculate the differences between trust in politicians and predicted trust
+# Calculate the differences between Trust_in_Politicians and Predicted_Trust
 prediction_df$Difference <- prediction_df$Trust_in_Politicians - prediction_df$Predicted_Trust
 
-# Plot the differences
-ggplot(prediction_df, aes(x = Trust_in_Politicians, y = Difference)) +
-  geom_point() +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +  # Add a dashed line at y = 0
-  labs(title = "Differences between Trust in Politicians and Predicted Trust",
-       x = "Trust in Politicians",
-       y = "Difference") +
-  theme_minimal()  # Optional: set the plot theme to minimal
-
-ggsave("figures/predicted_vs_actual_trust.png")
+# Calculate the average difference
+average_difference <- mean(prediction_df$Difference)
 ```
+The average difference between actual and predicted values seems very small.
 
 
 ### 3. Pearson Correlation
@@ -139,6 +134,7 @@ hist(data_prep$trust_politicians, main="Trust in Politicians", xlab="Trust Level
 # Save the histogram to "figures"-folder
 ggsave("figures/histogram2.png")
 ```
+There are quite a lot of 0 or 1 values at the trust values (meaning no or almost no trust) and very few above 8. For economic satisfaction the values 5-8 were selected the most.
 
 
 ### Boxplots
@@ -162,6 +158,7 @@ ggplot(data_prep, aes(x = factor(trust_politicians), y = econ_satisfaction)) +
 # Save the boxplot to "figures"-folder
 ggsave("figures/boxplot2.png")
 ```
+The two box plots illustrate the positive relationship between the two variables. People rating the economic situation as unsatisfying have very low trust in their politicians. The trustness increases whith increasing economic satisfaction (until economic situation = 9). For those who are very satisfied with economic situation (10) the trust is bit lower (significance unclear). When we change perspective and consideder the trust in politicians as X variable a similar pattern is observable: the higher the trust in politicians the higher their economic satisfaction.
 
 
 ### Heatmap
@@ -176,6 +173,7 @@ ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
 # Save the heatmap to "figures"-folder
 ggsave("figures/heatmap.png")
 ```
+The heatmap shows in which combinations between the two variables the most observations can be counted. Many participants chose for both variables 0 or 5 (which could be bias due to selecting a "popular number"). Apart from that the observations we made before are confirmed: higher values for economic satisfaction, many 5 and 7 selections for economic satisfaction, positive relationsship.
 
 
 ### Plot the Linear Model
@@ -192,7 +190,7 @@ ggplot(data_prep, aes(x = econ_satisfaction, y = trust_politicians)) +
 # Save the linear model plot to "figures"-folder
 ggsave("figures/linear_regression.png")
 ```
-
+The linear regression model also shows the positive relationship between the variables.
 
 
   
