@@ -18,4 +18,4 @@ data_prep <- na.omit(data_prep)
 View(data_prep)
 
 # Save the data to dedicated folder
-write.csv(data, "data_prep/data_prep.csv")
+write.csv(data_prep, "data_prep/data_prep.csv")
